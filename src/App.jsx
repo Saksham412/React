@@ -1,17 +1,27 @@
-import axios from "axios";
-import { useEffect, useState } from "react"
+
+import { useMemo, useState } from "react"
 
 function App() {
   const [counter, setCounter] = useState(0);
-  const [sum, setSum] = useState(0);
+  const [inputValue, setInputValue] = useState(0);
+
+  let count = useMemo(() => {
+    console.log("Memo called!")
+    let sum = 0;
+    for(let i=1;i<=inputValue ; i++){
+      sum+=i;
+    }
+    return sum;
+  }, [inputValue])
+
   return (
     <div>
       <input onChange={(event) =>{
-        let n = parseInt(event.target.value);
-        setSum((n)*(n+1)/2)
+        setInputValue(event.target.value);
       }} className="number"></input>
 
-      <h1>Sum is {sum}</h1>
+      <h1>Sum is {count}</h1>
+
 
       <button onClick={()=>{
         setCounter(counter+1)
